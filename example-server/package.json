@@ -1,0 +1,6 @@
+{
+  "name": "example-server",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {}
+}
