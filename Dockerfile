@@ -13,5 +13,13 @@ COPY  ./start.sh /start.sh
 # Set working directory
 WORKDIR  /var/app
 
+# Set default start command
+ENV  DOCKER_START_CMD npm
+
+# Set default start arguments
+ENV  DOCKER_START_ARGS start
+
 # Start the container
-CMD  [ "/start.sh" ]
+CMD  /start.sh \
+     && echo "Starting Node (via \`${DOCKER_START_CMD} ${DOCKER_START_ARGS}\`)..." \
+     && exec ${DOCKER_START_CMD} ${DOCKER_START_ARGS}
