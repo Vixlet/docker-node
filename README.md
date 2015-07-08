@@ -64,7 +64,7 @@ To use a custom pre-start script, simply provide an executable file in your work
 | **`DOCKER_START_CMD`** | `"npm"` (default) | Command to start node |
 | **`DOCKER_START_ARGS`** | `"start"` (default) | Arguments to pass to the start command |
 | **`DOCKER_PRESTART_SCRIPT`** | `"/var/app/docker-prestart.sh"` (default) | Path to script to run immediately before node |
-| **`DOCKER_PREINSTALLED`** | `""` (default) or `"bypass"` (bypass) | Should `npm install` be bypassed? |
+| **`DOCKER_PREINSTALLED`** | `""` (default) or `"bypass"` (bypass) | Should `npm install --production` be bypassed? |
 
 
 ## License

@@ -17,5 +17,5 @@ fi
 # Install dependencies?
 if [ -z "${DOCKER_PREINSTALLED}" ]; then
   test $? && echo "Installing NPM dependencies..." \
-    && npm install
+    && npm install --production
 fi
