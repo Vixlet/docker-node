@@ -1,5 +1,5 @@
 # Source image
-FROM  node:0.10.38
+FROM  node:0.10.40
 
 # Increate system ulimit
 COPY  ./limits.conf /etc/security/limits.conf
