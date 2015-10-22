@@ -4,7 +4,7 @@
 # Install dependencies?
 if [ $? -eq 0 ] && [ -z "${DOCKER_PREINSTALLED}" ]; then
   echo "Installing production NPM dependencies..." \
-    && npm install --production
+    && npm install --production --no-bin-links
 fi
 
 
