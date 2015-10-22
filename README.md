@@ -48,7 +48,6 @@ docker run -d \
 docker run -d \
     -p 8080:8080 \
     -v $( pwd ):/var/app \
-    -e "DOCKER_WATCH=on" \
     --name "vixlet-node-example" \
     vixlet/node:latest
 ```
