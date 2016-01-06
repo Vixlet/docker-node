@@ -8,7 +8,7 @@ CONTAINER_PREINSTALL="${CONTAINER_PREINSTALL:-npm install --production --no-bin-
 
 
 # Install dependencies?
-if [ -z "${DOCKER_PREINSTALLED}" ] && [ "${DOCKER_PREINSTALLED}" != "skip" ]; then
+if [ -n "${CONTAINER_PREINSTALL}" ] && [ "${CONTAINER_PREINSTALL}" != "skip" ]; then
   echo "Installing production NPM dependencies..."
   ${CONTAINER_PREINSTALL}
 fi
