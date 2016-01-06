@@ -15,7 +15,7 @@ fi
 
 
 # Run user-specified pre-start script, if it exists
-if [ -x ${CONTAINER_PRESTART} ]; then
+if [ -n ${CONTAINER_PRESTART} ]; then
   echo "Running docker prestart script..."
   ${CONTAINER_PRESTART}
 fi
