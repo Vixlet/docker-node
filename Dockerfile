@@ -2,7 +2,7 @@
 FROM  node:0.10.41
 
 # Install nodemon, supervisor, and forever
-RUN  npm i -g nodemon supervisor forever
+RUN  npm i -g nodemon forever
 
 # Increate system ulimit
 COPY  ./limits.conf /etc/security/limits.conf
