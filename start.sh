@@ -4,12 +4,13 @@ set -e
 
 # Default values for environment variables
 DOCKER_PRESTART_SCRIPT="${DOCKER_PRESTART_SCRIPT:-./docker-prestart.sh}"
+DOCKER_PREINSTALL_COMMAND="${DOCKER_PREINSTALL_COMMAND:-npm install --production --no-bin-links}"
 
 
 # Install dependencies?
 if [ -z "${DOCKER_PREINSTALLED}" ]; then
   echo "Installing production NPM dependencies..."
-  npm install --production --no-bin-links
+  ${DOCKER_PREINSTALL_COMMAND}
 fi
 
 
