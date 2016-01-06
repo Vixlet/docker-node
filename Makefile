@@ -1,28 +1,29 @@
 all:
-	docker build -f Dockerfile -t vixlet/node .
+	./makehelp.sh all-supported
 
-clean:
-	docker rmi -f vixlet/node
+push:
+	./makehelp.sh push-all-supported
 
-test:
-	bash -c 'make example-stop 2>/dev/null; echo "cleaned up from prior tests"'
-	make clean
-	make
-	make example-run
-	sleep 2
-	make example-status
-	make example-stop
-	echo "passed test!"
+v0.10:
+	./makehelp.sh all 0.10.41
 
-example-status:
-	bash -c 'docker ps | grep vixlet-node-example >/dev/null 2>&1'
+v0.12:
+	./makehelp.sh all 0.12.9
 
-example-run:
-	docker run -d -v $(shell pwd)/example-server:/var/app --name "vixlet-node-example" vixlet/node:latest
+v4.2:
+	./makehelp.sh all 4.2.4
 
-example-stop:
-	docker stop vixlet-node-example
-	docker rm vixlet-node-example
+v5.3:
+	./makehelp.sh all 5.3.0
 
-publish:
-	docker push vixlet/node
+push-v0.10:
+	./makehelp.sh push-all 0.10.41
+
+push-v0.12:
+	./makehelp.sh push-all 0.12.9
+
+push-v4.2:
+	./makehelp.sh push-all 4.2.4
+
+push-v5.3:
+	./makehelp.sh push-all 5.3.0

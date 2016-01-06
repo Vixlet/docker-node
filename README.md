@@ -23,6 +23,12 @@ This is a minimal Docker image for running Node in a customizable manner, by mak
 ## Base Docker Image
 - [node:0.10.41](https://registry.hub.docker.com/u/library/node/)
     + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/0.10/Dockerfile)
+- [node:0.12.9](https://registry.hub.docker.com/u/library/node/)
+    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/0.12/Dockerfile)
+- [node:4.2.4](https://registry.hub.docker.com/u/library/node/)
+    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/4.2/Dockerfile)
+- [node:5.3.0](https://registry.hub.docker.com/u/library/node/)
+    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/5.3/Dockerfile)
 
 
 ## Usage
