@@ -81,14 +81,13 @@ A custom pre-start script can be provided to handle any tasks prior to the conta
 > _Alternatively, you can use an arbitrarily-named pre-start script by defining the environment variable `CONTAINER_PRESTART`._
 
 ### Bypassing auto-pre-installation
-Setting the environment variable `DOCKER_PREINSTALLED` to any non-empty value will bypass the npm installation step of the container entrypoint script.
+Setting the environment variable `CONTAINER_PREINSTALL` to `"skip"` will bypass the npm installation step of the container entrypoint script.
 
 ## Environment variables
 | Variable Name | Default Value | Description |
 | ------------- | ------------- | ----------- |
-| **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` | Path to script to run immediately before node |
-| **`DOCKER_PREINSTALL_COMMAND`** | `"npm install --production --no-bin-links"` | Command used to install npm dependencies |
-| **`DOCKER_PREINSTALLED`** | `""` | Set to non-empty value to bypass npm dependencies installation |
+| **`CONTAINER_PREINSTALL`** | `"npm install --production --no-bin-links"` | Command used to install npm dependencies |
+| **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` or `"skip"` | Command to run prior to starting container |
 
 
 ## License

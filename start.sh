@@ -4,13 +4,13 @@ set -e
 
 # Default values for environment variables
 CONTAINER_PRESTART="${CONTAINER_PRESTART:-./docker-prestart.sh}"
-DOCKER_PREINSTALL_COMMAND="${DOCKER_PREINSTALL_COMMAND:-npm install --production --no-bin-links}"
+CONTAINER_PREINSTALL="${CONTAINER_PREINSTALL:-npm install --production --no-bin-links}"
 
 
 # Install dependencies?
-if [ -z "${DOCKER_PREINSTALLED}" ]; then
+if [ -z "${DOCKER_PREINSTALLED}" ] && [ "${DOCKER_PREINSTALLED}" != "skip" ]; then
   echo "Installing production NPM dependencies..."
-  ${DOCKER_PREINSTALL_COMMAND}
+  ${CONTAINER_PREINSTALL}
 fi
 
 
