@@ -1,11 +1,11 @@
 # Source image
 FROM  node:0.10.41
 
-# Increate system ulimit
-COPY  ./limits.conf /etc/security/limits.conf
-
 # Install nodemon, supervisor, and forever
 RUN  npm i -g nodemon supervisor forever
+
+# Increate system ulimit
+COPY  ./limits.conf /etc/security/limits.conf
 
 # Copy start-up script
 COPY  ./start.sh /start.sh
