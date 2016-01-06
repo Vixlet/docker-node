@@ -3,7 +3,7 @@ set -e
 
 
 # Default values for environment variables
-DOCKER_PRESTART_SCRIPT="${DOCKER_PRESTART_SCRIPT:-./docker-prestart.sh}"
+CONTAINER_PRESTART="${CONTAINER_PRESTART:-./docker-prestart.sh}"
 DOCKER_PREINSTALL_COMMAND="${DOCKER_PREINSTALL_COMMAND:-npm install --production --no-bin-links}"
 
 
@@ -15,9 +15,9 @@ fi
 
 
 # Run user-specified pre-start script, if it exists
-if [ -x ${DOCKER_PRESTART_SCRIPT} ]; then
+if [ -x ${CONTAINER_PRESTART} ]; then
   echo "Running docker prestart script..."
-  ${DOCKER_PRESTART_SCRIPT}
+  ${CONTAINER_PRESTART}
 fi
 
 
