@@ -19,3 +19,12 @@ if [ $? -eq 0 ] && [ -x ${DOCKER_PRESTART_SCRIPT} ]; then
   echo "Running docker prestart script..." \
     && ${DOCKER_PRESTART_SCRIPT}
 fi
+
+
+# Start the container
+if [ $? -eq 0 ] && [ "${#}" -lt 1 ]; then
+  echo "Starting Node (via \`npm start\`)..."
+  exec npm start
+elif [ $? -eq 0 ]; then
+  exec "${@}"
+fi
