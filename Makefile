@@ -18,7 +18,7 @@ example-status:
 	bash -c 'docker ps | grep vixlet-node-example >/dev/null 2>&1'
 
 example-run:
-	docker run -d -p 49988:8080 -v $(shell pwd)/example-server:/var/app --name "vixlet-node-example" vixlet/node:latest
+	docker run -d -v $(shell pwd)/example-server:/var/app --name "vixlet-node-example" vixlet/node:latest
 
 example-stop:
 	docker stop vixlet-node-example
