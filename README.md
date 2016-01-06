@@ -43,13 +43,6 @@ docker run -d \
     -v $( pwd ):/var/app \
     --name "vixlet-node-example" \
     vixlet/node:latest
-
-### RUN CONTAINER IN THE BACKGROUND FOR LOCAL DEVELOPMENT
-docker run -d \
-    -p 8080:8080 \
-    -v $( pwd ):/var/app \
-    --name "vixlet-node-example" \
-    vixlet/node:latest
 ```
 
 ### Setting a script hook
