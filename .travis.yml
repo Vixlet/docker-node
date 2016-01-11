@@ -2,8 +2,6 @@ sudo: required
 
 language: ruby
 
-dist: trusty
-
 services:
   - docker
 
@@ -12,6 +10,12 @@ env:
   - DOCKER_IMG_VERSION=0.12.9
   - DOCKER_IMG_VERSION=4.2.4
   - DOCKER_IMG_VERSION=5.3.0
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
 
 before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
