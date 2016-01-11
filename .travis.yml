@@ -14,7 +14,7 @@ env:
   - DOCKER_IMG_VERSION=4.2.4
   - DOCKER_IMG_VERSION=5.3.0
 
-before_script:
+before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 script:
