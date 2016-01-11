@@ -19,5 +19,8 @@ before_install:
 script:
   - ./build.sh all --latest=0.10.41 $DOCKER_IMG_VERSION
 
-after_success:
-  - ./build.sh push --latest=0.10.41 $DOCKER_IMG_VERSION
+deploy:
+  provider: script
+  script: ./build.sh push --latest=0.10.41 $DOCKER_IMG_VERSION
+  on:
+    branch: master
