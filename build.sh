@@ -17,25 +17,25 @@ TASKARG="${3}"
 # run requested task
 case "${TASK}" in
   "all-supported" )
-    ./makehelp.sh "all" "0.10.41"
-    ./makehelp.sh "all" "0.12.9"
-    ./makehelp.sh "all" "4.2.4"
-    ./makehelp.sh "all" "5.3.0"
+    ./build.sh "all" "0.10.41"
+    ./build.sh "all" "0.12.9"
+    ./build.sh "all" "4.2.4"
+    ./build.sh "all" "5.3.0"
     ;;
 
   "push-all-supported" )
-    ./makehelp.sh "push-all" "0.10.41"
-    ./makehelp.sh "push-all" "0.12.9"
-    ./makehelp.sh "push-all" "4.2.4"
-    ./makehelp.sh "push-all" "5.3.0"
+    ./build.sh "push-all" "0.10.41"
+    ./build.sh "push-all" "0.12.9"
+    ./build.sh "push-all" "4.2.4"
+    ./build.sh "push-all" "5.3.0"
     ;;
 
   "all" )
-    ./makehelp.sh "stoprm-all" "${VER}"
-    ./makehelp.sh "clean-all" "${VER}"
-    # ./makehelp.sh "build" "${VER}"
-    ./makehelp.sh "test" "${VER}"
-    ./makehelp.sh "tag" "${VER}"
+    ./build.sh "stoprm-all" "${VER}"
+    ./build.sh "clean-all" "${VER}"
+    # ./build.sh "build" "${VER}"
+    ./build.sh "test" "${VER}"
+    ./build.sh "tag" "${VER}"
     ;;
 
   "build" )
@@ -67,10 +67,10 @@ case "${TASK}" in
     ;;
 
   "test" )
-    ./makehelp.sh "stoprm" "${VER}" >/dev/null 2>&1
-    ./makehelp.sh "clean" "${VER}" >/dev/null 2>&1
-    ./makehelp.sh "build" "${VER}"
-    ./makehelp.sh "start" "${VER}"
+    ./build.sh "stoprm" "${VER}" >/dev/null 2>&1
+    ./build.sh "clean" "${VER}" >/dev/null 2>&1
+    ./build.sh "build" "${VER}"
+    ./build.sh "start" "${VER}"
     echo "waiting for ${SLEEP} seconds..."
     sleep ${SLEEP}
     STATUS="$(docker ps --filter "name=vixlet-node-test-${VER}" --format "{{.Status}}")"
@@ -79,32 +79,32 @@ case "${TASK}" in
       echo "test failed!"
       exit 1
     fi
-    ./makehelp.sh "stoprm" "${VER}"
-    # ./makehelp.sh "clean" "${VER}"
+    ./build.sh "stoprm" "${VER}"
+    # ./build.sh "clean" "${VER}"
     ;;
 
   "clean-all" )
-    ./makehelp.sh "task-all" "${VER}" "clean"
+    ./build.sh "task-all" "${VER}" "clean"
     ;;
 
   "push-all" )
-    ./makehelp.sh "task-all" "${VER}" "push"
+    ./build.sh "task-all" "${VER}" "push"
     ;;
 
   "stoprm-all" )
-    ./makehelp.sh "task-all" "${VER}" "stoprm"
+    ./build.sh "task-all" "${VER}" "stoprm"
     ;;
 
   "task-all" )
-    ./makehelp.sh "${TASKARG}" "${VER}"
-    ./makehelp.sh "${TASKARG}" "${SHVER}"
+    ./build.sh "${TASKARG}" "${VER}"
+    ./build.sh "${TASKARG}" "${SHVER}"
     if [ "${SHVER}" == "${LATEST}" ]; then
-      ./makehelp.sh "${TASKARG}" "latest"
+      ./build.sh "${TASKARG}" "latest"
     fi
     ;;
 
   * )
-    echo "makehelp.sh error: unrecognized task!"
+    echo "build.sh error: unrecognized task!"
     exit 1
     ;;
 esac
