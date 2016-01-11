@@ -16,20 +16,6 @@ TASKARG="${3}"
 
 # run requested task
 case "${TASK}" in
-  "all-supported" )
-    ./build.sh "all" "0.10.41"
-    ./build.sh "all" "0.12.9"
-    ./build.sh "all" "4.2.4"
-    ./build.sh "all" "5.3.0"
-    ;;
-
-  "push-all-supported" )
-    ./build.sh "push-all" "0.10.41"
-    ./build.sh "push-all" "0.12.9"
-    ./build.sh "push-all" "4.2.4"
-    ./build.sh "push-all" "5.3.0"
-    ;;
-
   "all" )
     ./build.sh "stoprm-all" "${VER}"
     ./build.sh "clean-all" "${VER}"
@@ -98,9 +84,9 @@ case "${TASK}" in
   "task-all" )
     ./build.sh "${TASKARG}" "${VER}"
     ./build.sh "${TASKARG}" "${SHVER}"
-    if [ "${SHVER}" == "${LATEST}" ]; then
-      ./build.sh "${TASKARG}" "latest"
-    fi
+    # if [ "${SHVER}" == "${LATEST}" ]; then
+    #   ./build.sh "${TASKARG}" "latest"
+    # fi
     ;;
 
   * )

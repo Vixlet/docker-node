@@ -1,9 +1,3 @@
-all:
-	./build.sh all-supported
-
-push:
-	./build.sh push-all-supported
-
 v0.10:
 	./build.sh all 0.10.41
 
