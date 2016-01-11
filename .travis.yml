@@ -1,12 +1,13 @@
 sudo: required
 
-os: linux
+language: ruby
+
+os:
+  - linux
 
 dist: trusty
 
 group: legacy
-
-language: ruby
 
 services:
   - docker
