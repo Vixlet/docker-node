@@ -27,7 +27,9 @@ function vdnbuild_helper_cleanup() {
   unset -v VDNBUILD_VER_LATEST
   unset -f vdnbuild_task_build
   unset -f vdnbuild_task_clean
+  unset -f vdnbuild_task_start
   unset -f vdnbuild_task_stoprm
+  unset -f vdnbuild_task_test
   unset -f vdnbuild_helper_cleanup
 }
 
@@ -76,13 +78,18 @@ function vdnbuild_task_clean() {
   echo -e $(docker rmi -f "vixlet/node:${1}"; exit 0)
 }
 
+function vdnbuild_task_start() {
+  docker run -d -v $(pwd)/example-server:/var/app --name "vixlet-node-test-${1}" "vixlet/node:${1}"
+}
+
 function vdnbuild_task_stoprm() {
   echo -e $(docker stop "vixlet-node-test-${1}"; exit 0)
   echo -e $(docker rm "vixlet-node-test-${1}"; exit 0)
 }
 
-function vdnbuild_task_start() {
-  docker run -d -v $(pwd)/example-server:/var/app --name "vixlet-node-test-${1}" "vixlet/node:${1}"
+function vdnbuild_task_test() {
+  # check status
+  docker ps --filter "name=vixlet-node-test-${1}" --format "{{.Status}}"
 }
 
 
@@ -96,12 +103,13 @@ case "${VDNBUILD_TASK}" in
     # build & run
     vdnbuild_task_build "${VDNBUILD_VER}" "${VDNBUILD_SHVER}"
     vdnbuild_task_start "${VDNBUILD_VER}"
+    # wait for container to start
     echo "waiting for '${VDNBUILD_WAIT}' seconds..."
     sleep ${VDNBUILD_WAIT}
-    # check status
-    STATUS="$(docker ps --filter "name=vixlet-node-test-${VDNBUILD_VER}" --format "{{.Status}}")"
-    STATUS="${STATUS%% *}"
-    if [ "${STATUS}" != "Up" ]; then
+    # test
+    if [[ "$(vdnbuild_task_test "${VDNBUILD_VER}")" =~ ^Up ]]; then
+      echo "build.sh: test passed for version '${VDNBUILD_VER}'!"
+    else
       echo "build.sh error: test failed for version '${VDNBUILD_VER}'!"
       exit 2
     fi
