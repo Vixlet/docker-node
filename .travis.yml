@@ -4,6 +4,7 @@ matrix:
   include:
     - os: linux
       sudo: required
+      group: edge
       services:
         - docker
       env: DOCKER_IMG_VERSION=0.10.41
