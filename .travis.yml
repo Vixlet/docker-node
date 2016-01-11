@@ -4,6 +4,8 @@ os: linux
 
 dist: trusty
 
+group: legacy
+
 language: ruby
 
 services:
