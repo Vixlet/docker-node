@@ -17,21 +17,10 @@ elif [ -z "${2}" ]; then
 fi
 
 
-# settings
-VDNBUILD_SLEEP=2
-
-
-# named arguments
-VDNBUILD_TASK="${1}"
-VDNBUILD_VER="${2}"
-VDNBUILD_SHVER="${VDNBUILD_VER%.*}"
-VDNBUILD_VER_LATEST="${3}" # optional argument
-
-
 # helper functions
 function vdnbuild_helper_cleanup() {
   # cleanup script's runtime artifacts
-  unset -v VDNBUILD_SLEEP
+  unset -v VDNBUILD_WAIT
   unset -v VDNBUILD_TASK
   unset -v VDNBUILD_VER
   unset -v VDNBUILD_SHVER
@@ -45,6 +34,37 @@ function vdnbuild_helper_cleanup() {
 
 # trap EXIT signal and run cleanup function
 trap vdnbuild_helper_cleanup EXIT
+
+
+# settings
+VDNBUILD_WAIT=2
+
+
+# arguments
+for arg in "$@"; do
+  case "${arg}" in
+    -l=*|--latest=*)
+      VDNBUILD_VER_LATEST="${arg#*=}"
+      shift # past argument=value
+      ;;
+    *)
+      # first argument
+      if [ -z "${VDNBUILD_TASK}" ]; then
+        VDNBUILD_TASK="${arg}"
+      # second argument
+      elif [ -z "${VDNBUILD_VER}" ]; then
+        VDNBUILD_VER="${arg}"
+        VDNBUILD_SHVER="${VDNBUILD_VER%.*}"
+      fi
+      shift # unknown option
+      ;;
+  esac
+done
+# echo "VDNBUILD_WAIT=$VDNBUILD_WAIT"
+# echo "VDNBUILD_TASK=$VDNBUILD_TASK"
+# echo "VDNBUILD_VER=$VDNBUILD_VER"
+# echo "VDNBUILD_SHVER=$VDNBUILD_SHVER"
+# echo "VDNBUILD_VER_LATEST=$VDNBUILD_VER_LATEST"
 
 
 # task functions
@@ -76,8 +96,8 @@ case "${VDNBUILD_TASK}" in
     # build & run
     vdnbuild_task_build "${VDNBUILD_VER}" "${VDNBUILD_SHVER}"
     vdnbuild_task_start "${VDNBUILD_VER}"
-    echo "waiting for '${VDNBUILD_SLEEP}' seconds..."
-    sleep ${VDNBUILD_SLEEP}
+    echo "waiting for '${VDNBUILD_WAIT}' seconds..."
+    sleep ${VDNBUILD_WAIT}
     # check status
     STATUS="$(docker ps --filter "name=vixlet-node-test-${VDNBUILD_VER}" --format "{{.Status}}")"
     STATUS="${STATUS%% *}"
@@ -89,9 +109,11 @@ case "${VDNBUILD_TASK}" in
     vdnbuild_task_stoprm "${VDNBUILD_VER}"
     # tag version as short version
     docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
+    echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:${VDNBUILD_SHVER}'!"
     # tag version as latest version
     if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_LATEST}" ]; then
       docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:latest"
+      echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:latest'!"
     fi
     ;;
 
