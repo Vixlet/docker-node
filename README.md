@@ -1,5 +1,7 @@
 # Node Docker Image
 
+[![Build Status](https://ci.vixlet.tools/Vixlet/docker-node.svg?token=5qymaxUB2TLHMvkxqyzw)](https://ci.vixlet.tools/Vixlet/docker-node)
+
 A configurable Docker container for running Node; designed for use with AWS ElasticBeanstalk! :P
 
 
