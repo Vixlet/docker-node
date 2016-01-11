@@ -2,93 +2,109 @@
 set -e
 
 
+###########################################
+# Vixlet 'docker/node' image build script #
+###########################################
+
+
+# validate arguments
+if [ -z "${1}" ]; then
+  echo "build.sh error: no task specified!"
+  exit 1
+elif [ -z "${2}" ]; then
+  echo "build.sh error: no build version specified!"
+  exit 1
+fi
+
+
 # settings
-LATEST="0.10"
-SLEEP=2
+VDNBUILD_SLEEP=2
 
 
 # named arguments
-TASK="${1}"
-VER="${2}"
-SHVER="${2%.*}"
-TASKARG="${3}"
+VDNBUILD_TASK="${1}"
+VDNBUILD_VER="${2}"
+VDNBUILD_SHVER="${VDNBUILD_VER%.*}"
+VDNBUILD_VER_LATEST="${3}" # optional argument
 
 
-# run requested task
-case "${TASK}" in
+# helper functions
+function vdnbuild_helper_cleanup() {
+  # cleanup script's runtime artifacts
+  unset -v VDNBUILD_SLEEP
+  unset -v VDNBUILD_TASK
+  unset -v VDNBUILD_VER
+  unset -v VDNBUILD_SHVER
+  unset -v VDNBUILD_VER_LATEST
+  unset -f vdnbuild_task_build
+  unset -f vdnbuild_task_clean
+  unset -f vdnbuild_task_stoprm
+  unset -f vdnbuild_helper_cleanup
+}
+
+
+# trap EXIT signal and run cleanup function
+trap vdnbuild_helper_cleanup EXIT
+
+
+# task functions
+function vdnbuild_task_build() {
+  docker build -f "${2}/Dockerfile" -t "vixlet/node:${1}" .
+}
+
+function vdnbuild_task_clean() {
+  echo -e $(docker rmi -f "vixlet/node:${1}"; exit 0)
+}
+
+function vdnbuild_task_stoprm() {
+  echo -e $(docker stop "vixlet-node-test-${1}"; exit 0)
+  echo -e $(docker rm "vixlet-node-test-${1}"; exit 0)
+}
+
+function vdnbuild_task_start() {
+  docker run -d -v $(pwd)/example-server:/var/app --name "vixlet-node-test-${1}" "vixlet/node:${1}"
+}
+
+
+# run task
+case "${VDNBUILD_TASK}" in
+  # build, test, and tag a specific image version
   "all" )
-    ./build.sh "stoprm-all" "${VER}"
-    ./build.sh "clean-all" "${VER}"
-    # ./build.sh "build" "${VER}"
-    ./build.sh "test" "${VER}"
-    ./build.sh "tag" "${VER}"
-    ;;
-
-  "build" )
-    docker build -f "${SHVER}/Dockerfile" -t "vixlet/node:${VER}" .
-    ;;
-
-  "clean" )
-    echo -e $(docker rmi -f "vixlet/node:${VER}"; exit 0)
-    ;;
-
-  "push" )
-    docker push "vixlet/node:${VER}"
-    ;;
-
-  "start" )
-    docker run -d -v $(pwd)/example-server:/var/app --name "vixlet-node-test-${VER}" "vixlet/node:${VER}"
-    ;;
-
-  "stoprm" )
-    echo -e $(docker stop "vixlet-node-test-${VER}"; exit 0)
-    echo -e $(docker rm "vixlet-node-test-${VER}"; exit 0)
-    ;;
-
-  "tag" )
-    docker tag "vixlet/node:${VER}" "vixlet/node:${SHVER}"
-    if [ "${SHVER}" == "${LATEST}" ]; then
-      docker tag "vixlet/node:${SHVER}" "vixlet/node:latest"
-    fi
-    ;;
-
-  "test" )
-    ./build.sh "stoprm" "${VER}" >/dev/null 2>&1
-    ./build.sh "clean" "${VER}" >/dev/null 2>&1
-    ./build.sh "build" "${VER}"
-    ./build.sh "start" "${VER}"
-    echo "waiting for ${SLEEP} seconds..."
-    sleep ${SLEEP}
-    STATUS="$(docker ps --filter "name=vixlet-node-test-${VER}" --format "{{.Status}}")"
+    # cleanup
+    vdnbuild_task_stoprm "${VDNBUILD_VER}" >/dev/null 2>&1
+    vdnbuild_task_clean "${VDNBUILD_VER}" >/dev/null 2>&1
+    # build & run
+    vdnbuild_task_build "${VDNBUILD_VER}" "${VDNBUILD_SHVER}"
+    vdnbuild_task_start "${VDNBUILD_VER}"
+    echo "waiting for '${VDNBUILD_SLEEP}' seconds..."
+    sleep ${VDNBUILD_SLEEP}
+    # check status
+    STATUS="$(docker ps --filter "name=vixlet-node-test-${VDNBUILD_VER}" --format "{{.Status}}")"
     STATUS="${STATUS%% *}"
     if [ "${STATUS}" != "Up" ]; then
-      echo "test failed!"
-      exit 1
+      echo "build.sh error: test failed for version '${VDNBUILD_VER}'!"
+      exit 2
     fi
-    ./build.sh "stoprm" "${VER}"
-    # ./build.sh "clean" "${VER}"
+    # stop
+    vdnbuild_task_stoprm "${VDNBUILD_VER}"
+    # tag version as short version
+    docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
+    # tag version as latest version
+    if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_LATEST}" ]; then
+      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:latest"
+    fi
     ;;
 
-  "clean-all" )
-    ./build.sh "task-all" "${VER}" "clean"
+  # push a specific image version
+  "push" )
+    docker push "vixlet/node:${VDNBUILD_VER}"
+    docker push "vixlet/node:${VDNBUILD_SHVER}"
+    if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_LATEST}" ]; then
+      docker push "vixlet/node:latest"
+    fi
     ;;
 
-  "push-all" )
-    ./build.sh "task-all" "${VER}" "push"
-    ;;
-
-  "stoprm-all" )
-    ./build.sh "task-all" "${VER}" "stoprm"
-    ;;
-
-  "task-all" )
-    ./build.sh "${TASKARG}" "${VER}"
-    ./build.sh "${TASKARG}" "${SHVER}"
-    # if [ "${SHVER}" == "${LATEST}" ]; then
-    #   ./build.sh "${TASKARG}" "latest"
-    # fi
-    ;;
-
+  # fallback for unsupported task
   * )
     echo "build.sh error: unrecognized task!"
     exit 1

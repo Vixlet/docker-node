@@ -1,5 +1,5 @@
 v0.10:
-	./build.sh all 0.10.41
+	./build.sh all 0.10.41 0.10.41
 
 v0.12:
 	./build.sh all 0.12.9
