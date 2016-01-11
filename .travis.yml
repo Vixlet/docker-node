@@ -1,5 +1,7 @@
 sudo: required
 
+language: ruby
+
 dist: trusty
 
 services:
