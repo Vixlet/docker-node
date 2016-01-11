@@ -1,34 +1,36 @@
+# matrix:
+#   include:
+#     - os: linux
+#       sudo: required
+#       group: edge
+#       services:
+#         - docker
+#       env: DOCKER_IMG_VERSION=0.10.41
+#     # - os: linux
+#     #   sudo: required
+#     #   services:
+#     #     - docker
+#     #   env: DOCKER_IMG_VERSION=0.12.9
+#     # - os: linux
+#     #   sudo: required
+#     #   services:
+#     #     - docker
+#     #   env: DOCKER_IMG_VERSION=4.2.4
+#     # - os: linux
+#     #   sudo: required
+#     #   services:
+#     #     - docker
+#     #   env: DOCKER_IMG_VERSION=5.3.0
+
 sudo: required
+dist: trusty
+group: edge
 
-matrix:
-  include:
-    - os: linux
-      sudo: required
-      group: edge
-      services:
-        - docker
-      env: DOCKER_IMG_VERSION=0.10.41
-    # - os: linux
-    #   sudo: required
-    #   services:
-    #     - docker
-    #   env: DOCKER_IMG_VERSION=0.12.9
-    # - os: linux
-    #   sudo: required
-    #   services:
-    #     - docker
-    #   env: DOCKER_IMG_VERSION=4.2.4
-    # - os: linux
-    #   sudo: required
-    #   services:
-    #     - docker
-    #   env: DOCKER_IMG_VERSION=5.3.0
+services:
+  - docker
 
-# services:
-#   - docker
-
-# env:
-#   - DOCKER_IMG_VERSION=0.10.41
+env:
+  - DOCKER_IMG_VERSION=0.10.41
 #   - DOCKER_IMG_VERSION=0.12.9
 #   - DOCKER_IMG_VERSION=4.2.4
 #   - DOCKER_IMG_VERSION=5.3.0
