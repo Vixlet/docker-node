@@ -3,5 +3,5 @@ Dockerfile
 LICENSE
 Makefile
 README.md
-example-server
 build.sh
+test

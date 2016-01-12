@@ -24,6 +24,7 @@ function vdnbuild_helper_cleanup() {
   unset -v VDNBUILD_TASK
   unset -v VDNBUILD_VER
   unset -v VDNBUILD_SHVER
+  unset -v VDNBUILD_TEST
   unset -v VDNBUILD_VER_LATEST
   unset -f vdnbuild_task_build
   unset -f vdnbuild_task_clean
@@ -40,6 +41,7 @@ trap vdnbuild_helper_cleanup EXIT
 
 # settings
 VDNBUILD_WAIT=2
+VDNBUILD_TEST=1
 
 
 # arguments
@@ -57,6 +59,9 @@ for arg in "$@"; do
       elif [ -z "${VDNBUILD_VER}" ]; then
         VDNBUILD_VER="${arg}"
         VDNBUILD_SHVER="${VDNBUILD_VER%.*}"
+      # third argument
+      elif [ -z "${VDNBUILD_TEST}" ]; then
+        VDNBUILD_TEST="${arg}"
       fi
       shift # unknown option
       ;;
@@ -66,6 +71,7 @@ done
 # echo "VDNBUILD_TASK=$VDNBUILD_TASK"
 # echo "VDNBUILD_VER=$VDNBUILD_VER"
 # echo "VDNBUILD_SHVER=$VDNBUILD_SHVER"
+# echo "VDNBUILD_TEST=$VDNBUILD_TEST"
 # echo "VDNBUILD_VER_LATEST=$VDNBUILD_VER_LATEST"
 
 
@@ -79,7 +85,7 @@ function vdnbuild_task_clean() {
 }
 
 function vdnbuild_task_start() {
-  docker run -d -v $(pwd)/example-server:/var/app --name "vixlet-node-test-${1}" "vixlet/node:${1}"
+  docker run -d -v "$(pwd)/test/${VDNBUILD_TEST}:/var/app" --name "vixlet-node-test-${1}" "vixlet/node:${1}"
 }
 
 function vdnbuild_task_stoprm() {
