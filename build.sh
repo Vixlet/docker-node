@@ -7,16 +7,6 @@ set -e
 ###########################################
 
 
-# validate arguments
-if [ -z "${1}" ]; then
-  echo "build.sh error: no task specified!"
-  exit 1
-elif [ -z "${2}" ]; then
-  echo "build.sh error: no build version specified!"
-  exit 1
-fi
-
-
 # helper functions
 function vdnbuild_helper_cleanup() {
   # cleanup script's runtime artifacts
@@ -73,6 +63,16 @@ done
 # echo "VDNBUILD_SHVER=$VDNBUILD_SHVER"
 # echo "VDNBUILD_TEST=$VDNBUILD_TEST"
 # echo "VDNBUILD_VER_LATEST=$VDNBUILD_VER_LATEST"
+
+
+# validate arguments
+if [ -z "${VDNBUILD_TASK}" ]; then
+  echo "build.sh error: no task specified!"
+  exit 1
+elif [ -z "${VDNBUILD_VER}" ]; then
+  echo "build.sh error: no build version specified!"
+  exit 1
+fi
 
 
 # task functions
