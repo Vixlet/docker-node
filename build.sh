@@ -28,7 +28,7 @@ trap vdnbuild_helper_cleanup EXIT
 
 
 # settings
-VDNBUILD_TESTS=(1)
+VDNBUILD_TESTS=( 1 2 )
 
 
 # arguments
@@ -110,6 +110,7 @@ case "${VDNBUILD_TASK}" in
       echo "build.sh: running test '${i}' for version '${VDNBUILD_VER}'"
       vdnbuild_task_test "${VDNBUILD_VER}" "${i}" || exit 2
     done
+    echo -e "\nall tests passed for version '${VDNBUILD_VER}'"
 
     # tag version as short version
     docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
