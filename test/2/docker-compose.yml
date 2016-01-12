@@ -1,10 +1,4 @@
 test:
-  container_name: 'docker-node-test'
   image: 'vixlet/node:${VERSION}'
   volumes:
    - '.:/var/app'
-  dns:
-   - 8.8.8.8
-   - 8.8.4.4
-  ulimits:
-    nproc: 65535
