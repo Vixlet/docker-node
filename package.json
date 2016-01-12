@@ -1,0 +1,16 @@
+{
+  "name": "@vixlet/docker-node",
+  "version": "0.0.0",
+  "author": "Vixlet",
+  "description": "A configurable Docker container for running Node.",
+  "private": true,
+  "scripts": {
+    "prepublish": "echo 'do not publish this package' && exit 1",
+    "test": "./build.sh all --latest=0.10.41"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Vixlet/docker-node.git"
+  },
+  "license": "ISC"
+}
