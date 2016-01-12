@@ -10,7 +10,6 @@ set -e
 # helper functions
 function vdnbuild_helper_cleanup() {
   # cleanup script's runtime artifacts
-  unset -v VDNBUILD_WAIT
   unset -v VDNBUILD_TASK
   unset -v VDNBUILD_VER
   unset -v VDNBUILD_SHVER
@@ -29,7 +28,6 @@ trap vdnbuild_helper_cleanup EXIT
 
 
 # settings
-VDNBUILD_WAIT=2
 VDNBUILD_TESTS=(1)
 
 
@@ -53,7 +51,6 @@ for arg in "$@"; do
       ;;
   esac
 done
-# echo "VDNBUILD_WAIT=$VDNBUILD_WAIT"
 # echo "VDNBUILD_TESTS=$VDNBUILD_TESTS"
 # echo "VDNBUILD_TASK=$VDNBUILD_TASK"
 # echo "VDNBUILD_VER=$VDNBUILD_VER"
@@ -85,7 +82,7 @@ function vdnbuild_task_stoprm() {
 }
 
 function vdnbuild_task_test() {
-  if OUTPUT=$(cd "test/${2}" && rm -rf node_modules && VERSION="${1}" WAIT="${VDNBUILD_WAIT}" docker-compose run --rm test); then
+  if OUTPUT=$(cd "test/${2}" && rm -rf node_modules && VERSION="${1}" docker-compose run --rm test); then
     echo -e "$OUTPUT"
     echo "build.sh: test ${2} passed for version '${1}'!"
     return 0

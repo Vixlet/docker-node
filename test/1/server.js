@@ -2,9 +2,6 @@
 
 var http = require( 'http' );
 
-process.env.PORT = process.env.PORT || 8080;
-process.env.WAIT = process.env.WAIT || 2000;
-
 var server = http.createServer( function ( req, res ) {
   var start = new Date();
   setImmediate( function () {
@@ -13,11 +10,11 @@ var server = http.createServer( function ( req, res ) {
   } );
 } );
 
-server.listen( process.env.PORT );
+server.listen( process.env.PORT || 8080 );
 
-process.stdout.write( 'node server listening on port :' + ( process.env.PORT ) + '...\n' );
+process.stdout.write( 'node server launched\n' );
 
 setTimeout( function () {
-  process.stdout.write( 'test passed!' );
+  process.stdout.write( '"standard node server" test passed\n' );
   process.exit();
-}, process.env.WAIT );
+}, 1000 );
