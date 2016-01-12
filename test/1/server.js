@@ -3,6 +3,7 @@
 var http = require( 'http' );
 
 process.env.PORT = process.env.PORT || 8080;
+process.env.WAIT = process.env.WAIT || 2000;
 
 var server = http.createServer( function ( req, res ) {
   var start = new Date();
@@ -15,3 +16,8 @@ var server = http.createServer( function ( req, res ) {
 server.listen( process.env.PORT );
 
 process.stdout.write( 'node server listening on port :' + ( process.env.PORT ) + '...\n' );
+
+setTimeout( function () {
+  process.stdout.write( 'test passed!' );
+  process.exit();
+}, process.env.WAIT );
