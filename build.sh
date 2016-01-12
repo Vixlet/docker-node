@@ -29,7 +29,7 @@ function vdnbuild_helper_cleanup() {
   unset -f vdnbuild_task_clean
   unset -f vdnbuild_task_start
   unset -f vdnbuild_task_stoprm
-  unset -f vdnbuild_task_test
+  unset -f vdnbuild_task_chkstatus
   unset -f vdnbuild_helper_cleanup
 }
 
@@ -87,7 +87,7 @@ function vdnbuild_task_stoprm() {
   echo -e $(docker rm "vixlet-node-test-${1}"; exit 0)
 }
 
-function vdnbuild_task_test() {
+function vdnbuild_task_chkstatus() {
   # check status
   docker ps --filter "name=vixlet-node-test-${1}" --format "{{.Status}}"
 }
@@ -107,7 +107,7 @@ case "${VDNBUILD_TASK}" in
     echo "waiting for '${VDNBUILD_WAIT}' seconds..."
     sleep ${VDNBUILD_WAIT}
     # test
-    if [[ "$(vdnbuild_task_test "${VDNBUILD_VER}")" =~ ^Up ]]; then
+    if [[ "$(vdnbuild_task_chkstatus "${VDNBUILD_VER}")" =~ ^Up ]]; then
       echo "build.sh: test passed for version '${VDNBUILD_VER}'!"
     else
       echo "build.sh error: test failed for version '${VDNBUILD_VER}'!"
