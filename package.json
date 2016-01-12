@@ -5,7 +5,6 @@
   "description": "A configurable Docker container for running Node.",
   "private": true,
   "scripts": {
-    "prepublish": "echo 'do not publish this package' && exit 1",
     "test": "./build.sh all"
   },
   "repository": {
