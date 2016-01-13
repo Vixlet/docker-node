@@ -70,7 +70,7 @@ fi
 
 # task functions
 function vdnbuild_task_build() {
-  docker build -f "${2}/Dockerfile" -t "vixlet/node:${1}" .
+  docker build -f "${2#*_node_}/Dockerfile" -t "vixlet/node:${1}" .
 }
 
 function vdnbuild_task_clean() {
