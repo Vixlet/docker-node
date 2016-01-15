@@ -10,6 +10,9 @@ RUN  apt-get install libkrb5-dev
 # Install nodemon, supervisor, and forever
 RUN  npm install -g nodemon@1.8.1 forever@0.15.1
 
+# Clean npm cache
+RUN  npm cache clean
+
 # Increate system ulimit
 COPY  ./limits.conf /etc/security/limits.conf
 
