@@ -11,10 +11,10 @@ services:
   - docker
 
 env:
-  - DOCKER_IMG_VERSION=v3_node_0.10.41
-  - DOCKER_IMG_VERSION=v3_node_0.12.9
-  - DOCKER_IMG_VERSION=v3_node_4.2.4
-  - DOCKER_IMG_VERSION=v3_node_5.3.0
+  - DOCKER_IMG_VERSION=v4_node_0.10.41
+  - DOCKER_IMG_VERSION=v4_node_0.12.9
+  - DOCKER_IMG_VERSION=v4_node_4.2.4
+  - DOCKER_IMG_VERSION=v4_node_5.3.0
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -24,10 +24,10 @@ before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 script:
-  - ./build.sh all --latest=v3_node_0.10.41 $DOCKER_IMG_VERSION
+  - ./build.sh all --latest=v4_node_0.10.41 $DOCKER_IMG_VERSION
 
 deploy:
   provider: script
-  script: ./build.sh push --latest=v3_node_0.10.41 $DOCKER_IMG_VERSION
+  script: ./build.sh push --latest=v4_node_0.10.41 $DOCKER_IMG_VERSION
   on:
     tags: true
