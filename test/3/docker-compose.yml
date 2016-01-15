@@ -1,0 +1,6 @@
+test:
+  image: vixlet/node:$VERSION
+  volumes:
+   - '.:/var/app'
+  environment:
+   - 'CONTAINER_PREINSTALL=skip'
