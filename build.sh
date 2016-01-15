@@ -28,7 +28,7 @@ trap vdnbuild_helper_cleanup EXIT
 
 
 # settings
-VDNBUILD_TESTS=( 1 2 3 )
+VDNBUILD_TESTS=( 1 2 3 4 )
 
 
 # arguments
