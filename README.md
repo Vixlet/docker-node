@@ -95,8 +95,8 @@ Setting the environment variable `CONTAINER_PREINSTALL` to `"skip"` will bypass 
 ## Environment variables
 | Variable Name | Default Value | Description |
 | ------------- | ------------- | ----------- |
-| **`CONTAINER_PREINSTALL`** | `"npm install --production --no-bin-links"` | Command used to install npm dependencies |
-| **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` or `"skip"` | Command to run prior to starting container |
+| **`CONTAINER_PREINSTALL`** | `"npm install --production --no-bin-links"` | Command used to install npm dependencies; set to `"skip"` to bypass installation step |
+| **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` | Command to run prior to starting container; skipped automatically if script isn't present |
 
 
 ## License
