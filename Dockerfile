@@ -10,11 +10,11 @@ RUN  apt-get install libkrb5-dev
 # Increate system ulimit
 COPY  ./limits.conf /etc/security/limits.conf
 
-# Copy start-up script
-COPY  ./start.sh /start.sh
+# Copy entrypoint script
+COPY  ./entry.sh /entry.sh
 
 # Set working directory
 WORKDIR  /var/app
 
 # Start the container
-ENTRYPOINT  ["/start.sh"]
+ENTRYPOINT  ["/entry.sh"]
