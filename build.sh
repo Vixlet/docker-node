@@ -15,6 +15,7 @@ function vdnbuild_helper_cleanup() {
   unset -v VDNBUILD_SHVER
   unset -v VDNBUILD_TEST
   unset -v VDNBUILD_VER_LATEST
+  unset -v VDNBUILD_VER_STABLE
   unset -f vdnbuild_task_build
   unset -f vdnbuild_task_clean
   unset -f vdnbuild_task_stoprm
@@ -36,6 +37,10 @@ for arg in "$@"; do
   case "${arg}" in
     -l=*|--latest=*)
       VDNBUILD_VER_LATEST="${arg#*=}"
+      shift # past argument=value
+      ;;
+    -l=*|--stable=*)
+      VDNBUILD_VER_STABLE="${arg#*=}"
       shift # past argument=value
       ;;
     *)
@@ -119,8 +124,16 @@ case "${VDNBUILD_TASK}" in
     docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
     echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:${VDNBUILD_SHVER}'!"
 
-    # tag version as latest version
+    # tag version as stable version
+    if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_STABLE}" ]; then
+      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:stable"
+      echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:stable'!"
+    fi
+
+    # tag version as edge & latest version
     if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_LATEST}" ]; then
+      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:edge"
+      echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:edge'!"
       docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:latest"
       echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:latest'!"
     fi
