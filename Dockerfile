@@ -1,5 +1,5 @@
 # Source image
-FROM  node:0.12.9
+FROM  node:${NODE_VERSION}
 
 # Update package cache
 RUN  apt-get update

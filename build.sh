@@ -70,7 +70,10 @@ fi
 
 # task functions
 function vdnbuild_task_build() {
-  docker build -f "${2#*_node_}/Dockerfile" -t "vixlet/node:${1}" .
+  local NODE_VERSION="${2#*_node_}"
+  mkdir -p "${NODE_VERSION}"
+  sed 's/\${NODE_VERSION}/'${NODE_VERSION}'/g' Dockerfile > "${NODE_VERSION}/Dockerfile"
+  docker build -f "${NODE_VERSION}/Dockerfile" -t "vixlet/node:${1}" .
 }
 
 function vdnbuild_task_clean() {
