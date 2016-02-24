@@ -66,21 +66,13 @@ docker run -it --rm \
     vixlet/node:latest \
     npm run my-custom-start-script
 
-#### START WITH INCLUDED FOREVER.JS
+#### START WITH ANY ARBITRARY COMMAND
 docker run -it --rm \
     -p 8080:8080 \
     -v $( pwd ):/var/app \
     --name "vixlet-node-example" \
     vixlet/node:latest \
-    forever start -c "npm start"
-
-#### START WITH INCLUDED NODEMON.JS
-docker run -it --rm \
-    -p 8080:8080 \
-    -v $( pwd ):/var/app \
-    --name "vixlet-node-example" \
-    vixlet/node:latest \
-    nodemon
+    /bin/bash
 ```
 
 ### Hooking into container pre-start
