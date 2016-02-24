@@ -121,20 +121,20 @@ case "${VDNBUILD_TASK}" in
     echo -e "\nall tests passed for version '${VDNBUILD_VER}'"
 
     # tag version as short version
-    docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
+    docker tag "vixlet/node:${VDNBUILD_VER}" "vixlet/node:${VDNBUILD_SHVER}"
     echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:${VDNBUILD_SHVER}'!"
 
     # tag version as stable version
     if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_STABLE}" ]; then
-      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:stable"
+      docker tag "vixlet/node:${VDNBUILD_VER}" "vixlet/node:stable"
       echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:stable'!"
     fi
 
     # tag version as edge & latest version
     if [ "${VDNBUILD_VER}" == "${VDNBUILD_VER_LATEST}" ]; then
-      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:edge"
+      docker tag "vixlet/node:${VDNBUILD_VER}" "vixlet/node:edge"
       echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:edge'!"
-      docker tag -f "vixlet/node:${VDNBUILD_VER}" "vixlet/node:latest"
+      docker tag "vixlet/node:${VDNBUILD_VER}" "vixlet/node:latest"
       echo "'vixlet/node:${VDNBUILD_VER}' tagged as 'vixlet/node:latest'!"
     fi
     ;;
