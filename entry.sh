@@ -3,15 +3,7 @@ set -e
 
 
 # Default values for environment variables
-DEFAULT_CONTAINER_PREINSTALL="npm install --production --no-bin-links"
 DEFAULT_CONTAINER_PRESTART="./docker-prestart.sh"
-
-
-# Install dependencies?
-if [ "${CONTAINER_PREINSTALL}" != "skip" ]; then
-  echo "Installing production NPM dependencies..."
-  ${CONTAINER_PREINSTALL:-$DEFAULT_CONTAINER_PREINSTALL}
-fi
 
 
 # Run user-specified pre-start command

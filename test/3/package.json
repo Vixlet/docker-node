@@ -2,6 +2,7 @@
   "main": "server.js",
   "private": true,
   "dependencies": {
-    "not-a-real-package": "*"
+    "bcrypt": "*",
+    "kerberos": "*"
   }
 }

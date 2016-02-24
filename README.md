@@ -59,6 +59,17 @@ docker run -it --rm \
 
 ### Run with custom container commands
 ```sh
+#### INSTALL NPM DEPENDENCIES ON CONTAINER START
+docker run -it --rm \
+    -p 8080:8080 \
+    -v $( pwd ):/var/app \
+    --name "vixlet-node-example" \
+    -e "CONTAINER_PRESTART=npm install --production" \
+    vixlet/node:latest
+```
+
+### Run with ad-hoc commands
+```sh
 #### START WITH A CUSTOM NPM SCRIPT
 docker run -it --rm \
     -p 8080:8080 \
@@ -81,14 +92,10 @@ A custom pre-start script can be provided to handle any tasks prior to the conta
 
 > _Alternatively, you can use an arbitrarily-named pre-start script by defining the environment variable `CONTAINER_PRESTART`._
 
-### Bypassing auto-pre-installation
-Setting the environment variable `CONTAINER_PREINSTALL` to `"skip"` will bypass the npm installation step of the container entrypoint script.
-
 
 ## Environment variables
 | Variable Name | Default Value | Description |
 | ------------- | ------------- | ----------- |
-| **`CONTAINER_PREINSTALL`** | `"npm install --production --no-bin-links"` | Command used to install npm dependencies; set to `"skip"` to bypass installation step |
 | **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` | Command to run prior to starting container; skipped automatically if script isn't present |
 
 
