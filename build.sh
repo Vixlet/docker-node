@@ -29,7 +29,7 @@ trap vdnbuild_helper_cleanup EXIT
 
 
 # settings
-VDNBUILD_TESTS=( 1 2 3 )
+VDNBUILD_TESTS=( 1 2 3 4 )
 
 
 # arguments
@@ -90,7 +90,7 @@ function vdnbuild_task_stoprm() {
 }
 
 function vdnbuild_task_test() {
-  if OUTPUT=$(cd "test/${2}" && rm -rf node_modules && VERSION="${1}" docker-compose run --rm test); then
+  if OUTPUT=$(VERSION="${1}" "./test/${2}/test.sh"); then
     echo -e "$OUTPUT"
     echo "build.sh: test ${2} passed for version '${1}'!"
     return 0

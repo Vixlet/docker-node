@@ -1,0 +1,8 @@
+{
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "bcrypt": "*",
+    "kerberos": "*"
+  }
+}

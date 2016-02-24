@@ -87,6 +87,37 @@ docker run -it --rm \
     /bin/bash
 ```
 
+### Use as base image
+```Dockerfile
+FROM  vixlet/node:stable
+
+# Install dependencies in a way which takes advantage of docker image caching,
+# so these steps are skipped whenever package.json and .npmrc haven't changed
+COPY  package.json /var/app/
+
+# Be sure to include an .npmrc if you use @scoped dependencies
+COPY  .npmrc /var/app/
+
+# Run npm install, skipping devDependencies
+RUN  npm install --production
+
+# Add application source to Docker image
+COPY  . /var/app/
+
+# Expose application ports
+EXPOSE  80 443
+```
+
+#### Then to run...
+```sh
+docker build -f "Dockerfile" -t "my-node-application-image" . \
+&& docker run -it --rm \
+    -p 80:80 \
+    -p 443:443 \
+    --name "my-node-application" \
+    "my-node-application-image"
+```
+
 ### Hooking into container pre-start
 A custom pre-start script can be provided to handle any tasks prior to the container starting. To use a pre-start script, include an executable file in your application named **`docker-prestart.sh`**.
 
