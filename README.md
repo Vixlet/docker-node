@@ -23,19 +23,20 @@ This is a minimal Docker image for running Node in a customizable manner, by mak
 
 
 ## Base Docker Image
-- [node:0.10.41](https://registry.hub.docker.com/u/library/node/)
+- [node:0.10.42](https://registry.hub.docker.com/u/library/node/)
     + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/0.10/Dockerfile)
-- [node:0.12.9](https://registry.hub.docker.com/u/library/node/)
+- [node:0.12.10](https://registry.hub.docker.com/u/library/node/)
     + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/0.12/Dockerfile)
-- [node:4.2.4](https://registry.hub.docker.com/u/library/node/)
-    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/4.2/Dockerfile)
-- [node:5.3.0](https://registry.hub.docker.com/u/library/node/)
-    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/5.3/Dockerfile)
+- [node:4.3.1](https://registry.hub.docker.com/u/library/node/)
+    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/4.3/Dockerfile)
+- [node:5.7.0](https://registry.hub.docker.com/u/library/node/)
+    + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/5.7/Dockerfile)
 
 
 ## Usage
 1. If you haven't already, install [Docker](https://www.docker.com/)
-2. Pull the [latest automated build](https://registry.hub.docker.com/u/vixlet/node/) from [DockerHub](https://registry.hub.docker.com/u/): `docker pull vixlet/node:latest`
+2. Pull the [latest stable automated build](https://registry.hub.docker.com/u/vixlet/node/) from [DockerHub](https://registry.hub.docker.com/u/):
+    `docker pull vixlet/node:stable`
 3. Run!
 
 ### Run in background
