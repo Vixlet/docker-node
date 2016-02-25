@@ -24,10 +24,10 @@ before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 script:
-  - ./build.sh all --latest=v5_node_5.6.0 --stable=v5_node_4.3.1 $DOCKER_IMG_VERSION
+  - ./tools/build~old.sh all --latest=v5_node_5.6.0 --stable=v5_node_4.3.1 $DOCKER_IMG_VERSION
 
 deploy:
   provider: script
-  script: ./build.sh push --latest=v5_node_5.6.0 --stable=v5_node_4.3.1 $DOCKER_IMG_VERSION
+  script: ./tools/build~old.sh push --latest=v5_node_5.6.0 --stable=v5_node_4.3.1 $DOCKER_IMG_VERSION
   on:
     tags: true
