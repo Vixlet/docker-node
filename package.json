@@ -5,7 +5,8 @@
   "description": "A configurable Docker container for running Node.",
   "private": true,
   "scripts": {
-    "test": "./tools/npm_test.sh"
+    "test": "./tools/npm_test.sh",
+    "make": "./tools/npm_make.sh"
   },
   "repository": {
     "type": "git",
