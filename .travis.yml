@@ -11,12 +11,20 @@ matrix:
   include:
     - node_js: "0.10"
       env: NODE_VERSION_X=010
+      services:
+        - docker
     - node_js: "0.12"
       env: NODE_VERSION_X=012
+      services:
+        - docker
     - node_js: "4.3"
       env: NODE_VERSION_X=4
+      services:
+        - docker
     - node_js: "5.6"
       env: NODE_VERSION_X=5
+      services:
+        - docker
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
