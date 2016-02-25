@@ -5,7 +5,7 @@
 ################################
 
 set -e
-echo "test: pwd: $(pwd)"
+echo -e "\ntest.sh...\n"
 source ./tools/versions.env
 source ./tools/resolve_envs.sh
 for TEST in ./test/*/test.sh; do

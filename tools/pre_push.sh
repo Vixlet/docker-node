@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#########################################
-# Runs build process for NODE_VERSION_X #
-#########################################
+#############################################
+# Rebuilds and run tests for NODE_VERSION_X #
+#############################################
 
 set -e
-echo "pre_push: pwd: $(pwd)"
+echo -e "\npre_push.sh...\n"
 ./tools/make.sh
 ./tools/build.sh
 ./tools/test.sh

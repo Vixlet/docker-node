@@ -1,8 +1,8 @@
 #!/bin/bash
 
-###########################################################
-# Run tests for each NODE_VERSION_X in NODE_VERSION_X_ALL #
-###########################################################
+########################################################################
+# Rebuilds and run tests for each NODE_VERSION_X in NODE_VERSION_X_ALL #
+########################################################################
 
 set -e
 source ./tools/versions.env
