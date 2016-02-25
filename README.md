@@ -118,6 +118,35 @@ docker build -f "Dockerfile" -t "my-node-application-image" . \
     "my-node-application-image"
 ```
 
+### Use as base image with faster npm install
+```Dockerfile
+FROM  vixlet/node:stable
+
+# Install dependencies outside of docker
+COPY  package.json /var/app/
+COPY  node_modules /var/app/node_modules
+
+# Rebuild native bindings
+RUN  npm rebuild
+
+# Add application source to Docker image
+COPY  . /var/app/
+
+# Expose application ports
+EXPOSE  80 443
+```
+
+#### Then to run...
+```sh
+npm install --production \
+&& docker build -f "Dockerfile" -t "my-node-application-image" . \
+&& docker run -it --rm \
+    -p 80:80 \
+    -p 443:443 \
+    --name "my-node-application" \
+    "my-node-application-image"
+```
+
 ### Hooking into container pre-start
 A custom pre-start script can be provided to handle any tasks prior to the container starting. To use a pre-start script, include an executable file in your application named **`docker-prestart.sh`**.
 
