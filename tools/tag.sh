@@ -5,6 +5,7 @@
 ################################################
 
 set -e
+echo "tag: pwd: $(pwd)"
 source ./tools/versions.env
 source ./tools/resolve_envs.sh
 docker tag "vixlet/node:${IMAGE_NODE_VERSION}" "vixlet/node:${IMAGE_NODE_VERSION_SHORT}"

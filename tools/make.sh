@@ -5,6 +5,7 @@
 #######################################
 
 set -e
+echo "make: pwd: $(pwd)"
 source ./tools/versions.env
 source ./tools/resolve_envs.sh
 rm -rf ./${NODE_VERSION_PATH}

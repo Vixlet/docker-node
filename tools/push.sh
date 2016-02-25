@@ -5,6 +5,7 @@
 #######################################################
 
 set -e
+echo "push: pwd: $(pwd)"
 source ./tools/versions.env
 source ./tools/resolve_envs.sh
 docker push "vixlet/node:${IMAGE_NODE_VERSION}"
