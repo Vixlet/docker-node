@@ -5,9 +5,8 @@
 #######################################################
 
 set -e
-cd "$( dirname "${BASH_SOURCE[0]}" )"
-source ./versions.env
-source ./resolve_envs.sh
+source ./tools/versions.env
+source ./tools/resolve_envs.sh
 docker push "vixlet/node:${IMAGE_NODE_VERSION}"
 docker push "vixlet/node:${IMAGE_NODE_VERSION_SHORT}"
 case "${NODE_VERSION_X}" in

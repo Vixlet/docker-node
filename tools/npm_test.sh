@@ -5,12 +5,11 @@
 ###########################################################
 
 set -e
-cd "$( dirname "${BASH_SOURCE[0]}" )"
-source ./versions.env
+source ./tools/versions.env
 if [[ $# -ge 1 ]]; then
-  NODE_VERSION_X="$1" ./pre_push.sh
+  NODE_VERSION_X="$1" ./tools/pre_push.sh
 else
   for curr in "${NODE_VERSION_X_ALL[@]}"; do
-    NODE_VERSION_X="$curr" ./pre_push.sh
+    NODE_VERSION_X="$curr" ./tools/pre_push.sh
   done
 fi

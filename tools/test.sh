@@ -5,10 +5,9 @@
 ################################
 
 set -e
-cd "$( dirname "${BASH_SOURCE[0]}" )"
-source ./versions.env
-source ./resolve_envs.sh
-for TEST in ../test/*/test.sh; do
+source ./tools/versions.env
+source ./tools/resolve_envs.sh
+for TEST in ./test/*/test.sh; do
   "${TEST}"
   echo ""
 done
