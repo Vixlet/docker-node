@@ -110,7 +110,7 @@ EXPOSE  80 443
 
 #### Then to run...
 ```sh
-docker build -f "Dockerfile" -t "my-node-application-image" . \
+docker build -t "my-node-application-image" . \
 && docker run -it --rm \
     -p 80:80 \
     -p 443:443 \
@@ -139,7 +139,7 @@ EXPOSE  80 443
 #### Then to run...
 ```sh
 npm install --production \
-&& docker build -f "Dockerfile" -t "my-node-application-image" . \
+&& docker build -t "my-node-application-image" . \
 && docker run -it --rm \
     -p 80:80 \
     -p 443:443 \
