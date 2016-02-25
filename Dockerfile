@@ -15,10 +15,10 @@ ENV  NPM_CONFIG_LOGLEVEL warn
 RUN  npm config set progress=false --global
 
 # Increate system ulimit
-COPY  ./limits.conf /etc/security/limits.conf
+COPY  limits.conf /etc/security/limits.conf
 
 # Copy entrypoint script
-COPY  ./entry.sh /entry.sh
+COPY  entry.sh /entry.sh
 
 # Set working directory
 WORKDIR  /var/app
