@@ -12,9 +12,11 @@ A configurable Docker container for running Node; designed for use with AWS Elas
     + [Run in background](#runinbackground)
     + [Run interactively](#runinteractively)
     + [Run with custom container commands](#runwithcustomcontainercommands)
+    + [Run with ad-hoc commands](#runwithadhoccommands)
+    + [Use as base image](#useasbaseimage)
+    + [Use as base image with faster npm install](#useasbaseimagewithfasternpminstall)
     + [Hooking into container pre-start](#hookingintocontainerprestart)
-    + [Bypassing auto-pre-installation](#bypassingautopreinstallation)
-    + [Environment variables](#environmentvariables)
+- [Contributing](#contributing)
 - [License](#license)
 
 
@@ -147,16 +149,18 @@ docker run -it --rm \
     "my-node-application-image"
 ```
 
-### Hooking into container pre-start
-A custom pre-start script can be provided to handle any tasks prior to the container starting. To use a pre-start script, include an executable file in your application named **`docker-prestart.sh`**.
+### Container pre-start
+A custom pre-start script (or command) can be provided to handle any tasks prior to the container starting.
 
-> _Alternatively, you can use an arbitrarily-named pre-start script by defining the environment variable `CONTAINER_PRESTART`._
+#### Pre-start script
+To use a pre-start script, include an executable file in your application named `docker-prestart.sh`; alternatively, set `CONTAINER_PRESTART` to the path to your executable script.
+
+#### Pre-start command
+To use a pre-start command, set `CONTAINER_PRESTART` to your command; eg. `CONTAINER_PRESTART=npm install --production`
 
 
-## Environment variables
-| Variable Name | Default Value | Description |
-| ------------- | ------------- | ----------- |
-| **`CONTAINER_PRESTART`** | `"/var/app/docker-prestart.sh"` | Command to run prior to starting container; skipped automatically if script isn't present |
+## Contributing
+Contributors are welcome! Please note that directories named after versions are in fact build artifacts, created by running `npm test`; please do not alter those files, as they are effectively for reference only.
 
 
 ## License
