@@ -8,6 +8,6 @@ set -e
 source ./tools/versions.env
 source ./tools/resolve_envs.sh
 for TEST in ./test/*/test.sh; do
-  "${TEST}"
+  ${TEST}
   echo ""
 done
