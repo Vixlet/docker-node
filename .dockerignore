@@ -1,8 +1,0 @@
-.dockerignore
-Dockerfile
-LICENSE
-Makefile
-README.md
-package.json
-build.sh
-test

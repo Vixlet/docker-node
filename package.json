@@ -5,11 +5,7 @@
   "description": "A configurable Docker container for running Node.",
   "private": true,
   "scripts": {
-    "test": "npm run test-0.10 && npm run test-0.12 && npm run test-4 && npm run test-5",
-    "test-0.10": "./build.sh all v5_node_0.10.42",
-    "test-0.12": "./build.sh all v5_node_0.12.10",
-    "test-4": "./build.sh all v5_node_4.3.1",
-    "test-5": "./build.sh all v5_node_5.6.0"
+    "test": "./tools/npm_test.sh"
   },
   "repository": {
     "type": "git",
