@@ -8,7 +8,7 @@ A configurable Docker container for running Node; designed for use with AWS Elas
 ## Table of Contents
 - [Overview](#overview)
 - [Base Docker Image](#basedockerimage)
-- [Usage](#usage)
+- [Container Usage](#containerusage)
     + [Run in background](#runinbackground)
     + [Run interactively](#runinteractively)
     + [Run with custom container commands](#runwithcustomcontainercommands)
@@ -17,6 +17,8 @@ A configurable Docker container for running Node; designed for use with AWS Elas
     + [Use as base image with faster npm install](#useasbaseimagewithfasternpminstall)
     + [Hooking into container pre-start](#hookingintocontainerprestart)
 - [Contributing](#contributing)
+    + [Building images](#buildingimages)
+    + [Specifying image versions](#specifyingimageversions)
 - [License](#license)
 
 
@@ -35,7 +37,7 @@ This is a minimal Docker image for running Node in a customizable manner, by mak
     + [Node Official Dockerfile](https://github.com/joyent/docker-node/blob/master/5.6/Dockerfile)
 
 
-## Usage
+## Container Usage
 1. If you haven't already, install [Docker](https://www.docker.com/)
 2. Pull the [latest stable automated build](https://registry.hub.docker.com/u/vixlet/node/) from [DockerHub](https://registry.hub.docker.com/u/):
     `docker pull vixlet/node:stable`
@@ -160,7 +162,24 @@ To use a pre-start command, set `CONTAINER_PRESTART` to your command; eg. `CONTA
 
 
 ## Contributing
-Contributors are welcome! Please note that directories named after versions are in fact build artifacts, created by running `npm test`; please do not alter those files, as they are effectively for reference only.
+Contributors are welcome! If there are changes you feel should be made, please create an issue in GitHub describing the rationale behind the changes, and then submit an associated pull request.
+
+> Note that the version directories are build artifacts! Do not change those files directly; instead, make changes in `context/` and `Dockerfile`, then run `npm run remake` to rebuild those files.
+
+### Building images
+```sh
+npm run clean # <-- deletes all build artifacts (including committed files)
+npm run make # <-- creates version directories w/ build context + dockerfile
+npm test # <-- builds and tests all image versions locally
+```
+
+### Specifying image versions
+The list of NodeJS versions used to build Docker images are specified in 2 files:
+
+|Filename|Purpose|
+|--------|-----|
+|`versions.env`|Specifies the exact versions of the base `docker/node` image for a given major NodeJS version.|
+|`.travis.yml`|Specified which major NodeJS versions should be built and published by TravisCI.|
 
 
 ## License
