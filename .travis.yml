@@ -37,5 +37,5 @@ deploy:
   provider: script
   script: ./tools/push.sh
   on:
-    repo: vixlet/docker-node
+    repo: Vixlet/docker-node
     tags: true
