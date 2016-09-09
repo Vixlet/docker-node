@@ -17,7 +17,7 @@ A configurable Docker container for running Node; designed for use with AWS Elas
     + [Use as base image with faster npm install](#useasbaseimagewithfasternpminstall)
     + [Hooking into container pre-start](#hookingintocontainerprestart)
 - [Contributing](#contributing)
-    + [Building images](#buildingimages)
+    + [Building](#building)
     + [Specifying image versions](#specifyingimageversions)
 - [License](#license)
 
@@ -164,7 +164,9 @@ Contributors are welcome! If there are changes you feel should be made, please c
 
 > Note that the version directories are build artifacts! Do not change those files directly; instead, make changes in `context/` and `Dockerfile`, then run `npm run remake` to rebuild those files.
 
-### Building images
+### Building
+Use the NPM scripts below to build the Docker images in this project. Note that the test suite may not pass if you are using Dinghy, therefore it is recommended to simply use a vanilla Docker Machine installation.
+
 ```sh
 npm run clean # <-- deletes all build artifacts (including committed files)
 npm run make # <-- creates version directories w/ build context + dockerfile
