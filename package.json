@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "test": "./tools/npm_test.sh",
-    "make": "./tools/npm_make.sh"
+    "make": "./tools/npm_make.sh",
+    "clean": "./tools/npm_clean.sh",
+    "remake": "npm run clean; npm run make"
   },
   "repository": {
     "type": "git",
