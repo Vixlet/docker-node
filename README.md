@@ -178,7 +178,7 @@ The list of NodeJS versions used to build Docker images are specified in 2 files
 
 |Filename|Purpose|
 |--------|-----|
-|`versions.env`|Specifies the exact versions of the base `docker/node` image for a given major NodeJS version.|
+|`tools/versions.env`|Specifies the exact versions of the base `docker/node` image for a given major NodeJS version.|
 |`.travis.yml`|Specified which major NodeJS versions should be built and published by TravisCI.|
 
 
