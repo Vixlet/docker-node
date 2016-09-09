@@ -9,20 +9,16 @@ services:
 
 matrix:
   include:
-    - node_js: "0.10"
-      env: NODE_VERSION_X=010
-      services:
-        - docker
-    - node_js: "0.12"
-      env: NODE_VERSION_X=012
-      services:
-        - docker
-    - node_js: "4.3"
+    - node_js: "4.5"
       env: NODE_VERSION_X=4
       services:
         - docker
-    - node_js: "5.6"
+    - node_js: "5.12"
       env: NODE_VERSION_X=5
+      services:
+        - docker
+    - node_js: "6.5"
+      env: NODE_VERSION_X=6
       services:
         - docker
 
