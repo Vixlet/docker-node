@@ -10,7 +10,7 @@ RUN  mkdir /var/app
 
 RUN  apk update
 
-RUN  apk add --no-cache krb5-dev python gcc g++ make git
+RUN  apk add --no-cache krb5-dev python gcc g++ make git tar
 
 # Copy entrypoint script
 COPY  entry.sh /entry.sh
