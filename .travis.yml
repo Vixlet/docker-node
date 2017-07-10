@@ -9,15 +9,7 @@ services:
 
 matrix:
   include:
-    - node_js: "4.5"
-      env: NODE_VERSION_X=4
-      services:
-        - docker
-    - node_js: "5.12"
-      env: NODE_VERSION_X=5
-      services:
-        - docker
-    - node_js: "6.5"
+    - node_js: "6.11"
       env: NODE_VERSION_X=6
       services:
         - docker
@@ -25,9 +17,16 @@ matrix:
       env: NODE_VERSION_X=alpine_6
       services:
         - docker
+    - node_js: "8.1"
+      env: NODE_VERSION_X=8
+      services:
+        - docker
+    - node_js: "8.1"
+      env: NODE_VERSION_X=alpine_8
+      services:
+        - docker
 
 before_install:
-  - npm -g install npm@3
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose

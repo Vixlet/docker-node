@@ -1,11 +1,11 @@
 # Source image
-FROM  node:4.5.0
+FROM  node:8.1.3
 
 # Update package cache
 RUN  apt-get update
 
 # Install krb5 and gssapi_krb5
-RUN  apt-get install libkrb5-dev
+RUN  apt-get install -y build-essential libkrb5-dev python
 
 # Clean apt-get cache to reduce image size
 RUN  apt-get clean
@@ -15,6 +15,8 @@ ENV  NPM_CONFIG_LOGLEVEL warn
 ENV  NPM_CONFIG_PROGRESS false
 RUN  npm config set loglevel warn --global
 RUN  npm config set progress false --global
+
+RUN npm i -g node-gyp
 
 # Increate system ulimit
 COPY  limits.conf /etc/security/limits.conf
