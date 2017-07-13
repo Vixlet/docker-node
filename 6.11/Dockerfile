@@ -1,5 +1,5 @@
 # Source image
-FROM  node:6.11.0
+FROM  node:6.11.1
 
 # Update package cache
 RUN  apt-get update
