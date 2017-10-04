@@ -17,11 +17,11 @@ matrix:
       env: NODE_VERSION_X=alpine_6
       services:
         - docker
-    - node_js: "8.1"
+    - node_js: "8.6"
       env: NODE_VERSION_X=8
       services:
         - docker
-    - node_js: "8.1"
+    - node_js: "8.6"
       env: NODE_VERSION_X=alpine_8
       services:
         - docker
