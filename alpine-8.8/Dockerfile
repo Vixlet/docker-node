@@ -1,5 +1,5 @@
 # Source image
-FROM  node:8.7.0-alpine
+FROM  node:8.8.0-alpine
 
 ENV  NPM_CONFIG_LOGLEVEL warn
 ENV  NPM_CONFIG_PROGRESS false

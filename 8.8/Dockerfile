@@ -1,5 +1,5 @@
 # Source image
-FROM  node:8.7.0
+FROM  node:8.8.0
 
 # Update package cache
 RUN  apt-get update
